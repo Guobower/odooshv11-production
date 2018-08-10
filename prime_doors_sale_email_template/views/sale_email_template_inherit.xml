@@ -107,11 +107,6 @@ PRIME DOORS SALES &amp; SERVICES, LLC<br>
         </record>
 
 
-    </data>
-</odoo>
-
-
-
  <record id="email_template_edi_sale_quote_acknowledgement" model="mail.template">
             <field name="name">Quote Acknowledgement - Send by Email</field>
             <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
