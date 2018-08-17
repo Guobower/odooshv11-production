@@ -41,6 +41,8 @@ class SaleOrderLine(models.Model):
 
     purchase_order_id = fields.Many2one('purchase.order',
         'Purchase Order', ondelete='set null', related="move_ids.purchase_order_id", store=True, index=True, readonly=True, copy=False)
+    sequence = fields.Integer(string='Sequence', default=9999)
+
 
     @api.model
     def create(self, vals):

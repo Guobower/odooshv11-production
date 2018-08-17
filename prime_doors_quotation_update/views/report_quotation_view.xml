@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <template id="external_layout_boxed_inherit" inherit_id="prime_doors_external_layout.external_layout_boxed_inherit">
+        <xpath expr="//div[hasclass('header', 'o_boxed_header')]" position="inside">
+            <t t-if="doc_model == 'sale.order'">
+                <h3>
+                    <!-- <t t-esc="env.context"/> -->
+                    <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+                        <span t-if="doc.state not in ['draft','sent']">ORDER # </span>
+                        <span t-if="doc.state in ['draft','sent']">QUOTATION # </span>
+                    </t>
+                    <t t-if="env.context.get('proforma', False) or is_pro_forma">
+                        <span>PRO-FORMA INVOICE # </span>
+                    </t>
+                    <span t-field="doc.name"/>
+                </h3>
+            </t>
+        </xpath>
+    </template>
     <template id="sale.report_saleorder_document">
         <t t-call="web.external_layout">
             <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
@@ -28,16 +45,6 @@
                     </div>
                 </div>
 
-                <h2>
-                    <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
-                        <span t-if="doc.state not in ['draft','sent']">ORDER # </span>
-                        <span t-if="doc.state in ['draft','sent']">QUOTATION # </span>
-                    </t>
-                    <t t-if="env.context.get('proforma', False) or is_pro_forma">
-                        <span>PRO-FORMA INVOICE # </span>
-                    </t>
-                    <span t-field="doc.name"/>
-                </h2>
 
                 <div class="row mt32 mb32" id="informations">
                     <div t-if="doc.client_order_ref" class="col-xs-3">
