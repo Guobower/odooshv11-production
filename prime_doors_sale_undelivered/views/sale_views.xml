@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-info">invoice_status == 'to invoice' and percent_delivered == 100.0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount_total']" position="before">
+                <field name="percent_delivered"/>
+                <field name="amount_not_delivered" sum="Total Not Delivered"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
